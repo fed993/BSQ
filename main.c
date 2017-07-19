@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/18 22:21:18 by jostraye         ###   ########.fr       */
+/*   Updated: 2017/07/19 11:47:33 by jostraye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,23 @@ void bsq(char *map)
 		vide_bomb_full[j - i + 3] = map[j];
 		j++;
 	}
-//	while (i >= 3)
-//	{
-//		*line_num += map[i - 3]*10;
-//		i--;
-//	}
-//	line_num 
-//	printf("%d", *line_num);
-	printf("%s", vide_bomb_full);
+//	printf("%s", vide_bomb_full);
+	char *grid;
+	grid = malloc((sizeof(char))*(sizeof(map)-i));
+	while (map[i] != '\0')
+		i++;
+	i = i - j;
+	int k;
+	k = 0;
+	printf("%c",map[j]);
+	while (k < i)
+	{
+		j++;
+		grid[k] = map[j];
+		k++;
+	}
+//	printf("%d", j);
+	printf("%s", grid);
 }
 
 int main(int ac, char **av)
@@ -71,15 +80,12 @@ int main(int ac, char **av)
 		fd = open(av[i], O_RDWR);
 		i++;
 		while((ret = read(fd, buf, 1)))
-		{
 			count++;
-			write (1, &buf, 1);
-		}
 		close(fd);
 		fd = open(av[i - 1], O_RDWR);
 		char buf2[count];
 		ret = read(fd, buf2, count);
-		ft_putstr(buf2);
+//		ft_putstr(buf2);
 		close(fd);
 		bsq(buf2);
 	}
