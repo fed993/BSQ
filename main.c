@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/18 20:06:35 by laube            ###   ########.fr       */
+/*   Updated: 2017/07/18 21:19:54 by jostraye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,31 @@ void	ft_putstr(char *str)
 	}
 }
 
+
+typedef	s_definer	t_definer;
+
+struct s_definer 
+{
+	int line;
+	char vide;
+	char bomb;
+	char plein;
+}
+
+void bsq(char *map)
+{
+	int i;
+	t_definer line_one;
+
+	i = 0;
+	while (map[i] != '\n')
+		i++;
+	line_one->plein = map[i];
+	line_one->bomb = map[i - 1];
+	line_one->vide = map[i - 2];
+	while (i >= 0)
+		line_one->line = map[i - 3]
+}
 
 int main(int ac, char **av)
 {
