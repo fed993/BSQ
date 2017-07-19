@@ -5,17 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 19:33:50 by laube             #+#    #+#             */
-/*   Updated: 2017/07/18 19:34:24 by laube            ###   ########.fr       */
+/*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
+/*   Updated: 2017/07/18 20:06:35 by laube            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "my_file.h"
 
-int	ft_putchar(int c)
+char	ft_putchar(char c)
 {
 	write(1, &c, 1);
-	return (0);
 }
 
 void	ft_putstr(char *str)
@@ -30,32 +29,6 @@ void	ft_putstr(char *str)
 	}
 }
 
-char	**matrix(char **buff)
-{
-	int i;
-	int k;
-	int p;
-	char matr[256][256];
-
-	i = 0;
-	k = 0;
-	p = 0;
-
-	while (*buff[i] != '\0')
-	{
-		while (*buff[i] != '\n')
-		{
-			matr[p][k] = *buff[i];
-			k++;
-			i++;
-		}
-		p++;
-		i++;
-		k = 0;
-	}
-	printf("%s", matr[1]);
-	return (matr);
-}
 
 int main(int ac, char **av)
 {
@@ -63,10 +36,9 @@ int main(int ac, char **av)
 	int ret;
 	char buf[1];
 	int i;
-	i = 1;
 	int count;
-	char *buf2;
 
+	i = 1;
 	ret = 0;
 	count = 0;
 	while (i < ac)
@@ -76,16 +48,15 @@ int main(int ac, char **av)
 		while((ret = read(fd, buf, 1)))
 		{
 			count++;
+			write (1, &buf, 1);
 		}
-		char buf2[count + 1];
 		close(fd);
 		fd = open(av[i - 1], O_RDWR);
+		char buf2[count];
 		ret = read(fd, buf2, count);
-		printf("%s", buf2);
+		ft_putstr(buf2);
 		close(fd);
 	}
-	matrix(&buf2);
 	return (0);
 }
-
 
