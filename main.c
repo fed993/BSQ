@@ -6,13 +6,13 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/18 21:19:54 by jostraye         ###   ########.fr       */
+/*   Updated: 2017/07/18 22:21:18 by jostraye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "my_file.h"
 
-char	ft_putchar(char c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
@@ -29,30 +29,30 @@ void	ft_putstr(char *str)
 	}
 }
 
-
-typedef	s_definer	t_definer;
-
-struct s_definer 
-{
-	int line;
-	char vide;
-	char bomb;
-	char plein;
-}
-
 void bsq(char *map)
 {
+	int *line_num;
+	char vide_bomb_full[3];
 	int i;
-	t_definer line_one;
+	int j;
 
 	i = 0;
 	while (map[i] != '\n')
 		i++;
-	line_one->plein = map[i];
-	line_one->bomb = map[i - 1];
-	line_one->vide = map[i - 2];
-	while (i >= 0)
-		line_one->line = map[i - 3]
+	j = i - 3;
+	while (j < i)
+	{
+		vide_bomb_full[j - i + 3] = map[j];
+		j++;
+	}
+//	while (i >= 3)
+//	{
+//		*line_num += map[i - 3]*10;
+//		i--;
+//	}
+//	line_num 
+//	printf("%d", *line_num);
+	printf("%s", vide_bomb_full);
 }
 
 int main(int ac, char **av)
@@ -81,6 +81,7 @@ int main(int ac, char **av)
 		ret = read(fd, buf2, count);
 		ft_putstr(buf2);
 		close(fd);
+		bsq(buf2);
 	}
 	return (0);
 }
