@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/19 11:47:33 by jostraye         ###   ########.fr       */
+/*   Updated: 2017/07/19 14:45:08 by laube            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_putstr(char *str)
 void bsq(char *map)
 {
 	int *line_num;
-	char vide_bomb_full[3];
+	char vbf[3];
 	int i;
 	int j;
 
@@ -42,10 +42,10 @@ void bsq(char *map)
 	j = i - 3;
 	while (j < i)
 	{
-		vide_bomb_full[j - i + 3] = map[j];
+		vbf[j - i + 3] = map[j];
 		j++;
 	}
-//	printf("%s", vide_bomb_full);
+//	printf("%s", vbf);
 	char *grid;
 	grid = malloc((sizeof(char))*(sizeof(map)-i));
 	while (map[i] != '\0')
@@ -53,14 +53,64 @@ void bsq(char *map)
 	i = i - j;
 	int k;
 	k = 0;
-	printf("%c",map[j]);
+	//printf("%c",map[j]);
 	while (k < i)
 	{
 		j++;
 		grid[k] = map[j];
 		k++;
 	}
-//	printf("%d", j);
+	printf("%s\n", grid);
+	
+	// new parts
+	// counting lines and cols
+	int line;
+	int col;
+
+	i = 0;
+	while (grid[i++])
+		if (grid[i] == '\n')
+			line++;
+	i = 0;
+	while (grid[i++] != '\n')
+		col++;
+	// CHANGE EMPTY AND BOMBS TO 1 & 0
+	
+	char min = 0;
+	i = 0;
+	while (grid[i])
+	{
+		if (grid[i] == vbf[0])
+			grid[i] = '1';
+		else if (grid[i] == vbf[1])
+			grid[i] = '0';
+		i++;
+	}
+	printf("%s\n", grid);												// TRANSFER GRID TO INT
+	i = 0;
+	while(grid[i])
+	
+	{
+	//	if (i % col == 0)
+	//		i++;
+		if (grid[i] == '\n')
+			i++;
+		if (i <= col)
+			i++;
+		else if (i % (col + 1 ) == 0)
+			i++;
+		else if (grid[i] == '0')
+			i++;
+		//else 
+		//{
+		//	grid[i] = '.';
+		//	i++;
+		//}
+		else
+		{
+
+		}
+	}
 	printf("%s", grid);
 }
 
