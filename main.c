@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/19 17:18:21 by laube            ###   ########.fr       */
+/*   Updated: 2017/07/19 18:32:09 by laube            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ void bsq(char *map)
 		j++;
 	}
 //	printf("%s", vbf);
-	char *grid;
-	grid = malloc((sizeof(char))*(sizeof(map)-i));
+	int *grid;
+	char *pre_grid;
+
+	pre_grid = (char*)malloc((sizeof(char))*(sizeof(map) - i));
 	while (map[i] != '\0')
 		i++;
 	i = i - j;
@@ -57,10 +59,10 @@ void bsq(char *map)
 	while (k < i)
 	{
 		j++;
-		grid[k] = map[j];
+		pre_grid[k] = map[j];
 		k++;
 	}
-	printf("%s\n", grid);
+	printf("%s\n", pre_grid);
 	
 	// new parts
 	// counting lines and cols
@@ -68,48 +70,54 @@ void bsq(char *map)
 	int col;
 
 	i = 0;
-	while (grid[i++])
-		if (grid[i] == '\n')
+	while (pre_grid[i++])
+		if (pre_grid[i] == '\n')
 			line++;
 	i = 0;
-	while (grid[i++] != '\n')
+	while (pre_grid[i++] != '\n')
 		col++;
 	// CHANGE EMPTY AND BOMBS TO 1 & 0
 	
-	char min = 0;
+	grid = (int*)malloc((sizeof(int))*((line * line) * (col * col)));
+	int min;
+
+	min	= 0;
 	i = 0;
-	while (grid[i] != '\0')
+	while (pre_grid[i] != '\0')
 	{
-		if (grid[i] == vbf[0])
-			grid[i] = '1';
-		else if (grid[i] == vbf[1])
-			grid[i] = '0';
+		if (pre_grid[i] == vbf[0])
+			grid[i] = 1;
+		else if (pre_grid[i] == vbf[1])
+			grid[i] = 0;
+		else if (pre_grid[i] == '\n')
+			grid[i] = -2;
 		i++;
 	}
-	printf("%s\n", grid);												// TRANSFER GRID TO INT
+
+	// TEST PRINT GRID
+//	i = 0;
+//	while (i < (col + 1) * line)
+//	{
+//		printf("%d", grid[i]);
+//		i++;
+//	}
 	i = 0;
-	while(grid[i] != '\0')
+	while(i < (col + 1) * line)
 	
 	{
 
-		if (i % col+1 == 0)
+		if (i % col + 1 == 0)
 			i++;
-		else if (grid[i] == '\n')
+		else if (grid[i] == -2)
 			i++;
 		else if (i <= col)
 			i++;
-		else if (i % (col + 1 ) == 0)
+		else if (i % (col + 1) == 0)
 			i++;
-		else if (grid[i] == '0')
+		else if (grid[i] == 0)
 			i++;
-	//else 
-	//{
-	//	grid[i] = '.';
-	//	i++;
-	//}
 		else
 		{
-		//	 printf("i =%d\ngrid[i] =%c\ngrid[i - 1] =%c\ngrid[i - col - 1] =%c\ngrid[i - col - 2] =%c\n", i,  grid[i], grid[i - 1], grid[i - col - 1], grid[i - col - 2]);
 			min = grid[i - 1];
 			if (grid[i - col - 1] <= min)
 				min = grid[i - col - 1];
@@ -118,9 +126,25 @@ void bsq(char *map)
 			grid[i] = min + 1;
 			i++;
 		}
-
 	}
-	printf("%s", grid);
+
+	i = 0;
+	while (i < (col + 1) * line)
+	{
+		printf("%d", grid[i]);
+		i++;
+	}
+	// CHECK THE MAX MATRIX
+	int max;
+	i = 0;
+
+	while (i < (col + 1) * line)
+	{
+		if (grid[i] > max && grid[i] != -2)
+			max = grid[i];
+		i++;
+	}
+	printf("\n%d", max);
 }
 
 int main(int ac, char **av)
