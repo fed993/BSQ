@@ -6,9 +6,10 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 19:57:44 by laube             #+#    #+#             */
-/*   Updated: 2017/07/19 20:09:11 by laube            ###   ########.fr       */
+/*   Updated: 2017/07/19 20:18:10 by jostraye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "my_file.h"
 
 void	ft_putchar(char c)
 {
@@ -25,6 +26,16 @@ void	ft_putstr(char *str)
 		ft_putchar(str[index]);
 		index++;
 	}
+}
+
+char *trim_space(char *str)
+{
+	int i;
+
+	i=0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		str++;
+	return(str);
 }
 
 int		ft_atoi(char *str)
