@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/19 18:32:09 by laube            ###   ########.fr       */
+/*   Updated: 2017/07/19 19:42:35 by laube            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void bsq(char *map)
 		pre_grid[k] = map[j];
 		k++;
 	}
-	printf("%s\n", pre_grid);
+//	printf("%s\n", pre_grid);
 	
 	// new parts
 	// counting lines and cols
@@ -128,12 +128,12 @@ void bsq(char *map)
 		}
 	}
 
-	i = 0;
-	while (i < (col + 1) * line)
-	{
-		printf("%d", grid[i]);
-		i++;
-	}
+//	i = 0;
+//	while (i < (col + 1) * line)
+//	{
+//		printf("%d", grid[i]);
+//		i++;
+//	}
 	// CHECK THE MAX MATRIX
 	int max;
 	i = 0;
@@ -144,7 +144,29 @@ void bsq(char *map)
 			max = grid[i];
 		i++;
 	}
-	printf("\n%d", max);
+	int posi;
+
+	posi = 0;
+	while (grid[posi] != max)
+		posi++;
+
+	printf("%s\n", map);
+	int posi2;
+	int offset;
+
+	posi2 = 0;
+	offset = 0;
+	while (posi2 < max)
+	{
+		while (offset < max)
+		{
+			pre_grid[posi - ((col + 1) * posi2) - offset] = vbf[2];
+			offset++;
+		}
+		offset = 0;
+		posi2++;
+	}
+	printf("%s", pre_grid);
 }
 
 int main(int ac, char **av)
