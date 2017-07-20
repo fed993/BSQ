@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/19 14:45:08 by laube            ###   ########.fr       */
+/*   Updated: 2017/07/19 17:01:55 by laube            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void bsq(char *map)
 	
 	char min = 0;
 	i = 0;
-	while (grid[i])
+	while (grid[i] != '\0')
 	{
 		if (grid[i] == vbf[0])
 			grid[i] = '1';
@@ -88,11 +88,12 @@ void bsq(char *map)
 	}
 	printf("%s\n", grid);												// TRANSFER GRID TO INT
 	i = 0;
-	while(grid[i])
+	while(grid[i] != '\0')
 	
 	{
-	//	if (i % col == 0)
-	//		i++;
+
+		if (i % col+1 == 0)
+			i++;
 		if (grid[i] == '\n')
 			i++;
 		if (i <= col)
@@ -101,15 +102,23 @@ void bsq(char *map)
 			i++;
 		else if (grid[i] == '0')
 			i++;
-		//else 
-		//{
-		//	grid[i] = '.';
-		//	i++;
-		//}
+	//else 
+	//{
+	//	grid[i] = '.';
+	//	i++;
+	//}
 		else
 		{
-
+			 printf("i =%d\ngrid[i] =%c\ngrid[i - 1] =%c\ngrid[i - col - 1] =%c\ngrid[i - col - 2] =%c\n", i,  grid[i], grid[i - 1], grid[i - col], grid[i - col - 1]);
+			min = grid[i - 1];
+			if (grid[i - col - 1] <= min)
+				min = grid[i - col - 1];
+			else if (grid[i - col - 2] <= min)
+				min = grid[i - col - 2];
+			grid[i] = min + 1;
+			i++;
 		}
+
 	}
 	printf("%s", grid);
 }
