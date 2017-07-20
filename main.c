@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/19 17:01:55 by laube            ###   ########.fr       */
+/*   Updated: 2017/07/19 17:18:21 by laube            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void bsq(char *map)
 
 		if (i % col+1 == 0)
 			i++;
-		if (grid[i] == '\n')
+		else if (grid[i] == '\n')
 			i++;
-		if (i <= col)
+		else if (i <= col)
 			i++;
 		else if (i % (col + 1 ) == 0)
 			i++;
@@ -109,11 +109,11 @@ void bsq(char *map)
 	//}
 		else
 		{
-			 printf("i =%d\ngrid[i] =%c\ngrid[i - 1] =%c\ngrid[i - col - 1] =%c\ngrid[i - col - 2] =%c\n", i,  grid[i], grid[i - 1], grid[i - col], grid[i - col - 1]);
+		//	 printf("i =%d\ngrid[i] =%c\ngrid[i - 1] =%c\ngrid[i - col - 1] =%c\ngrid[i - col - 2] =%c\n", i,  grid[i], grid[i - 1], grid[i - col - 1], grid[i - col - 2]);
 			min = grid[i - 1];
 			if (grid[i - col - 1] <= min)
 				min = grid[i - col - 1];
-			else if (grid[i - col - 2] <= min)
+			if (grid[i - col - 2] <= min)
 				min = grid[i - col - 2];
 			grid[i] = min + 1;
 			i++;
