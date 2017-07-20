@@ -6,7 +6,7 @@
 /*   By: laube <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 20:04:56 by laube             #+#    #+#             */
-/*   Updated: 2017/07/19 19:42:35 by laube            ###   ########.fr       */
+/*   Updated: 2017/07/19 23:01:24 by fpolyans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,142 +31,27 @@ void	ft_putstr(char *str)
 
 void bsq(char *map)
 {
-	int *line_num;
-	char vbf[3];
 	int i;
 	int j;
+	int min;
+	int max;
+	int *pos;
 
-	i = 0;
-	while (map[i] != '\n')
-		i++;
-	j = i - 3;
-	while (j < i)
-	{
-		vbf[j - i + 3] = map[j];
-		j++;
-	}
-//	printf("%s", vbf);
-	int *grid;
-	char *pre_grid;
+	assign_valid_chars(&i, &j);
+	build_pregird(&i, &j, &map);
 
-	pre_grid = (char*)malloc((sizeof(char))*(sizeof(map) - i));
-	while (map[i] != '\0')
-		i++;
-	i = i - j;
-	int k;
-	k = 0;
-	//printf("%c",map[j]);
-	while (k < i)
-	{
-		j++;
-		pre_grid[k] = map[j];
-		k++;
-	}
-//	printf("%s\n", pre_grid);
-	
 	// new parts
 	// counting lines and cols
-	int line;
-	int col;
-
-	i = 0;
-	while (pre_grid[i++])
-		if (pre_grid[i] == '\n')
-			line++;
-	i = 0;
-	while (pre_grid[i++] != '\n')
-		col++;
+	count_lns_cls(&i);
 	// CHANGE EMPTY AND BOMBS TO 1 & 0
-	
-	grid = (int*)malloc((sizeof(int))*((line * line) * (col * col)));
-	int min;
+	parse_chars_to_nums(&min, &i);
+	algorithm(&min, *i);
+	find_max_num(&max, &)
+	fin_max_num(&max, &i);
+	pos = (int*)malloc(sizeof(int) * 3);
+	overwrite_grids(&max, &pos, &map);
 
-	min	= 0;
-	i = 0;
-	while (pre_grid[i] != '\0')
-	{
-		if (pre_grid[i] == vbf[0])
-			grid[i] = 1;
-		else if (pre_grid[i] == vbf[1])
-			grid[i] = 0;
-		else if (pre_grid[i] == '\n')
-			grid[i] = -2;
-		i++;
-	}
-
-	// TEST PRINT GRID
-//	i = 0;
-//	while (i < (col + 1) * line)
-//	{
-//		printf("%d", grid[i]);
-//		i++;
-//	}
-	i = 0;
-	while(i < (col + 1) * line)
-	
-	{
-
-		if (i % col + 1 == 0)
-			i++;
-		else if (grid[i] == -2)
-			i++;
-		else if (i <= col)
-			i++;
-		else if (i % (col + 1) == 0)
-			i++;
-		else if (grid[i] == 0)
-			i++;
-		else
-		{
-			min = grid[i - 1];
-			if (grid[i - col - 1] <= min)
-				min = grid[i - col - 1];
-			if (grid[i - col - 2] <= min)
-				min = grid[i - col - 2];
-			grid[i] = min + 1;
-			i++;
-		}
-	}
-
-//	i = 0;
-//	while (i < (col + 1) * line)
-//	{
-//		printf("%d", grid[i]);
-//		i++;
-//	}
-	// CHECK THE MAX MATRIX
-	int max;
-	i = 0;
-
-	while (i < (col + 1) * line)
-	{
-		if (grid[i] > max && grid[i] != -2)
-			max = grid[i];
-		i++;
-	}
-	int posi;
-
-	posi = 0;
-	while (grid[posi] != max)
-		posi++;
-
-	printf("%s\n", map);
-	int posi2;
-	int offset;
-
-	posi2 = 0;
-	offset = 0;
-	while (posi2 < max)
-	{
-		while (offset < max)
-		{
-			pre_grid[posi - ((col + 1) * posi2) - offset] = vbf[2];
-			offset++;
-		}
-		offset = 0;
-		posi2++;
-	}
-	printf("%s", pre_grid);
+	ft_putstr(g_pre_grid);
 }
 
 int main(int ac, char **av)
@@ -190,7 +75,7 @@ int main(int ac, char **av)
 		fd = open(av[i - 1], O_RDWR);
 		char buf2[count];
 		ret = read(fd, buf2, count);
-//		ft_putstr(buf2);
+		//		ft_putstr(buf2);
 		close(fd);
 		bsq(buf2);
 	}
